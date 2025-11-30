@@ -1,444 +1,554 @@
-import React, { useState, useEffect } from 'react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Founding Partner Program | ResultantAI Gateway</title>
+    <meta name="description" content="Stop worrying about AI costs. The only AI gateway built for agencies. Predictable pricing. Multi-client billing. Zero surprise bills.">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Founding Partner Program | ResultantAI Gateway">
+    <meta property="og:description" content="Stop worrying about AI costs. Join 25 agencies getting flat-rate AI pricing locked in forever.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://ai-gateway-prod.fly.dev/og-image.png">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:creator" content="@ChrisdotMott">
+    
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            950: '#0a0f1a'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-text {
+            background: linear-gradient(135deg, #34d399 0%, #22d3ee 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .glow {
+            box-shadow: 0 0 60px rgba(52, 211, 153, 0.15);
+        }
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .pulse-slow { animation: pulse-slow 2s ease-in-out infinite; }
+    </style>
+</head>
+<body class="bg-slate-950 text-white antialiased">
+    
+    <!-- Urgency Banner -->
+    <div class="bg-gradient-to-r from-amber-500 to-orange-500 text-black py-2.5 px-4 text-center text-sm font-medium">
+        <span class="font-bold" id="spots-count">23 of 25 spots left</span> — Founding Partner pricing ends <span id="countdown">Dec 24</span>
+    </div>
 
-const FoundingPartnerLanding = () => {
-  const [spotsLeft, setSpotsLeft] = useState(23);
-  const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
-  const [timeLeft, setTimeLeft] = useState({ days: 24, hours: 0, minutes: 0 });
-
-  // Countdown to Dec 24
-  useEffect(() => {
-    const targetDate = new Date('2024-12-24T23:59:59');
-    const interval = setInterval(() => {
-      const now = new Date();
-      const diff = targetDate - now;
-      if (diff > 0) {
-        setTimeLeft({
-          days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
-          minutes: Math.floor((diff / (1000 * 60)) % 60)
-        });
-      }
-    }, 60000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // In production, this would submit to your backend/Airtable/etc
-    setSubmitted(true);
-  };
-
-  const testimonials = [
-    {
-      quote: "Chris built exactly what we needed - a system that qualifies leads while we sleep. We've already 3x'd our qualified lead volume without hiring more reps.",
-      name: "Jay Jami",
-      role: "Founder, Hera J",
-      metric: "3x lead volume"
-    },
-    {
-      quote: "The automation delivers professional audits faster than we could have imagined. It's killer work that's already transforming how we approach prospect engagement.",
-      name: "Tyler York",
-      role: "Founder, AdLeg Marketing",
-      metric: "97% time savings"
-    },
-    {
-      quote: "I was amazed by the efficiency. They are fast, cost-effective, and available 24/7. Booking appointments has never been easier!",
-      name: "Vernon J. Sparks",
-      role: "Owner, Wayne Conn Plumbing",
-      metric: "$6,285 in 2 weeks"
-    }
-  ];
-
-  const painPoints = [
-    {
-      icon: "💸",
-      title: "Surprise Bills",
-      description: "One viral campaign can spike your AI costs 5-10x overnight. You only find out when the bill arrives."
-    },
-    {
-      icon: "📊",
-      title: "Multi-Client Chaos",
-      description: "You share one OpenAI key across 12 clients. How do you bill accurately? Spoiler: you can't."
-    },
-    {
-      icon: "😰",
-      title: "Growth Anxiety",
-      description: "Every extra request = unknown cost. You're turning down opportunities because scaling is terrifying."
-    }
-  ];
-
-  const features = [
-    { icon: "🛡️", title: "Consumption Insurance", desc: "Flat monthly rate. Go viral without going broke." },
-    { icon: "📈", title: "Per-Client Tracking", desc: "Know exactly what each client costs. Bill accurately." },
-    { icon: "⚡", title: "One API Key", desc: "OpenAI + Anthropic + Google. Drop-in compatible." },
-    { icon: "🚨", title: "Hard Budget Caps", desc: "Set limits. Never exceed them. Sleep at night." },
-    { icon: "🔄", title: "Smart Routing", desc: "Auto-picks cheapest model that works. 80% savings." },
-    { icon: "📋", title: "Compliance Ready", desc: "HIPAA, GDPR toggles. Enterprise clients welcome." }
-  ];
-
-  return (
-    <div className="min-h-screen bg-slate-950 text-white">
-      {/* Urgency Banner */}
-      <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-black py-2 px-4 text-center text-sm font-medium">
-        <span className="font-bold">{spotsLeft} of 25 spots left</span> — Founding Partner pricing ends in {timeLeft.days}d {timeLeft.hours}h
-      </div>
-
-      {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950" />
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500 rounded-full filter blur-[128px]" />
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-emerald-500 rounded-full filter blur-[128px]" />
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden">
+        <!-- Background Effects -->
+        <div class="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"></div>
+        <div class="absolute inset-0 opacity-30">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-blue-500 rounded-full blur-[128px]"></div>
+            <div class="absolute bottom-20 right-10 w-96 h-96 bg-emerald-500 rounded-full blur-[128px]"></div>
         </div>
         
-        <div className="relative max-w-5xl mx-auto px-6 py-24 text-center">
-          <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-4 py-2 mb-8">
-            <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-            <span className="text-emerald-400 text-sm font-medium">Founding Partner Program — Limited to 25 Agencies</span>
-          </div>
-          
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
-            Stop Worrying About
-            <span className="block bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
-              AI Costs
-            </span>
-          </h1>
-          
-          <p className="text-xl md:text-2xl text-slate-400 max-w-2xl mx-auto mb-8">
-            The only AI gateway built for agencies. Predictable pricing. 
-            Multi-client billing. Zero surprise bills.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-            <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-2xl p-6 text-left">
-              <div className="text-slate-500 text-sm line-through mb-1">$99/month ($1,188/year)</div>
-              <div className="flex items-baseline gap-2">
-                <span className="text-4xl font-bold text-white">$499</span>
-                <span className="text-slate-400">/year</span>
-              </div>
-              <div className="text-emerald-400 text-sm font-medium mt-1">Save $689 — locked in forever</div>
+        <div class="relative max-w-5xl mx-auto px-6 py-20 md:py-28 text-center">
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-4 py-2 mb-8">
+                <span class="w-2 h-2 bg-emerald-400 rounded-full pulse-slow"></span>
+                <span class="text-emerald-400 text-sm font-medium">Founding Partner Program — Limited to 25 Agencies</span>
             </div>
-          </div>
-
-          <a 
-            href="#claim" 
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-black font-semibold px-8 py-4 rounded-full text-lg transition-all transform hover:scale-105 shadow-lg shadow-emerald-500/25"
-          >
-            Claim Your Spot
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </a>
-          
-          <p className="text-slate-500 text-sm mt-4">No credit card required to apply</p>
-        </div>
-      </section>
-
-      {/* Social Proof Bar */}
-      <section className="border-y border-slate-800 bg-slate-900/50">
-        <div className="max-w-5xl mx-auto px-6 py-8">
-          <div className="flex flex-wrap justify-center items-center gap-8 text-slate-400">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-white">$2M+</div>
-              <div className="text-sm">AI spend managed</div>
-            </div>
-            <div className="w-px h-12 bg-slate-700 hidden sm:block" />
-            <div className="text-center">
-              <div className="text-3xl font-bold text-white">300%</div>
-              <div className="text-sm">Revenue increase (MerchantSpring)</div>
-            </div>
-            <div className="w-px h-12 bg-slate-700 hidden sm:block" />
-            <div className="text-center">
-              <div className="text-3xl font-bold text-white">97%</div>
-              <div className="text-sm">Time saved (AdLeg)</div>
-            </div>
-            <div className="w-px h-12 bg-slate-700 hidden sm:block" />
-            <div className="text-center">
-              <div className="text-3xl font-bold text-white">11x</div>
-              <div className="text-sm">Revenue growth (Honcho)</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Pain Points */}
-      <section className="py-24">
-        <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-            Sound Familiar?
-          </h2>
-          <p className="text-slate-400 text-center mb-16 max-w-2xl mx-auto">
-            Every agency using AI has the same problems. We built the solution.
-          </p>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {painPoints.map((point, i) => (
-              <div key={i} className="bg-slate-900/50 border border-slate-800 rounded-2xl p-8 hover:border-slate-700 transition-colors">
-                <div className="text-4xl mb-4">{point.icon}</div>
-                <h3 className="text-xl font-semibold mb-3">{point.title}</h3>
-                <p className="text-slate-400">{point.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Solution */}
-      <section className="py-24 bg-gradient-to-b from-slate-950 to-slate-900">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              One Gateway. All Providers. Zero Surprises.
-            </h2>
-            <p className="text-slate-400 max-w-2xl mx-auto">
-              Replace your OpenAI, Anthropic, and Google API keys with one Resultant Gateway key. 
-              Works with your existing code — no rewrites needed.
+            
+            <!-- Headline -->
+            <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-6">
+                Stop Worrying About
+                <span class="block gradient-text">AI Costs</span>
+            </h1>
+            
+            <p class="text-lg md:text-2xl text-slate-400 max-w-2xl mx-auto mb-10">
+                The only AI gateway built for agencies. Predictable pricing. 
+                Multi-client billing. Zero surprise bills.
             </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {features.map((feature, i) => (
-              <div key={i} className="bg-slate-800/30 border border-slate-800 rounded-xl p-6 hover:bg-slate-800/50 transition-colors">
-                <div className="text-2xl mb-3">{feature.icon}</div>
-                <h3 className="font-semibold mb-2">{feature.title}</h3>
-                <p className="text-slate-400 text-sm">{feature.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Code Example */}
-          <div className="mt-16 bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
-            <div className="flex items-center gap-2 px-4 py-3 bg-slate-800/50 border-b border-slate-800">
-              <div className="w-3 h-3 rounded-full bg-red-500" />
-              <div className="w-3 h-3 rounded-full bg-yellow-500" />
-              <div className="w-3 h-3 rounded-full bg-green-500" />
-              <span className="text-slate-500 text-sm ml-2">Drop-in replacement</span>
+            
+            <!-- Pricing Card -->
+            <div class="inline-block bg-slate-800/50 backdrop-blur border border-slate-700 rounded-2xl p-6 mb-10 glow">
+                <div class="text-slate-500 text-sm line-through mb-1">$99/month ($1,188/year)</div>
+                <div class="flex items-baseline justify-center gap-2">
+                    <span class="text-4xl font-bold text-white">$499</span>
+                    <span class="text-slate-400">/year</span>
+                </div>
+                <div class="text-emerald-400 text-sm font-medium mt-1">Save $689 — locked in forever</div>
             </div>
-            <pre className="p-6 text-sm overflow-x-auto">
-              <code className="text-slate-300">
-{`// Before: Managing 3 different APIs
+            
+            <div class="block">
+                <a href="#claim" class="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-black font-semibold px-8 py-4 rounded-full text-lg transition-all transform hover:scale-105 shadow-lg shadow-emerald-500/25">
+                    Claim Your Spot
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </a>
+            </div>
+            
+            <p class="text-slate-500 text-sm mt-4">No credit card required to apply</p>
+        </div>
+    </section>
+
+    <!-- Social Proof Bar -->
+    <section class="border-y border-slate-800 bg-slate-900/50">
+        <div class="max-w-5xl mx-auto px-6 py-8">
+            <div class="flex flex-wrap justify-center items-center gap-6 md:gap-8 text-slate-400">
+                <div class="text-center px-4">
+                    <div class="text-2xl md:text-3xl font-bold text-white">$2M+</div>
+                    <div class="text-xs md:text-sm">AI spend managed</div>
+                </div>
+                <div class="w-px h-12 bg-slate-700 hidden md:block"></div>
+                <div class="text-center px-4">
+                    <div class="text-2xl md:text-3xl font-bold text-white">300%</div>
+                    <div class="text-xs md:text-sm">Revenue increase</div>
+                </div>
+                <div class="w-px h-12 bg-slate-700 hidden md:block"></div>
+                <div class="text-center px-4">
+                    <div class="text-2xl md:text-3xl font-bold text-white">97%</div>
+                    <div class="text-xs md:text-sm">Time saved</div>
+                </div>
+                <div class="w-px h-12 bg-slate-700 hidden md:block"></div>
+                <div class="text-center px-4">
+                    <div class="text-2xl md:text-3xl font-bold text-white">11x</div>
+                    <div class="text-xs md:text-sm">Revenue growth</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pain Points -->
+    <section class="py-20 md:py-24">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">
+                Sound Familiar?
+            </h2>
+            <p class="text-slate-400 text-center mb-12 md:mb-16 max-w-2xl mx-auto">
+                Every agency using AI has the same problems. We built the solution.
+            </p>
+            
+            <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+                <!-- Pain 1 -->
+                <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 md:p-8 hover:border-slate-700 transition-colors">
+                    <div class="text-4xl mb-4">💸</div>
+                    <h3 class="text-xl font-semibold mb-3">Surprise Bills</h3>
+                    <p class="text-slate-400">One viral campaign can spike your AI costs 5-10x overnight. You only find out when the bill arrives.</p>
+                </div>
+                <!-- Pain 2 -->
+                <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 md:p-8 hover:border-slate-700 transition-colors">
+                    <div class="text-4xl mb-4">📊</div>
+                    <h3 class="text-xl font-semibold mb-3">Multi-Client Chaos</h3>
+                    <p class="text-slate-400">You share one OpenAI key across 12 clients. How do you bill accurately? Spoiler: you can't.</p>
+                </div>
+                <!-- Pain 3 -->
+                <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 md:p-8 hover:border-slate-700 transition-colors">
+                    <div class="text-4xl mb-4">😰</div>
+                    <h3 class="text-xl font-semibold mb-3">Growth Anxiety</h3>
+                    <p class="text-slate-400">Every extra request = unknown cost. You're turning down opportunities because scaling is terrifying.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Features -->
+    <section class="py-20 md:py-24 bg-gradient-to-b from-slate-950 to-slate-900">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-12 md:mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    One Gateway. All Providers. Zero Surprises.
+                </h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">
+                    Replace your OpenAI, Anthropic, and Google API keys with one Resultant Gateway key. 
+                    Works with your existing code — no rewrites needed.
+                </p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                <div class="bg-slate-800/30 border border-slate-800 rounded-xl p-5 md:p-6 hover:bg-slate-800/50 transition-colors">
+                    <div class="text-2xl mb-3">🛡️</div>
+                    <h3 class="font-semibold mb-2">Consumption Insurance</h3>
+                    <p class="text-slate-400 text-sm">Flat monthly rate. Go viral without going broke.</p>
+                </div>
+                <div class="bg-slate-800/30 border border-slate-800 rounded-xl p-5 md:p-6 hover:bg-slate-800/50 transition-colors">
+                    <div class="text-2xl mb-3">📈</div>
+                    <h3 class="font-semibold mb-2">Per-Client Tracking</h3>
+                    <p class="text-slate-400 text-sm">Know exactly what each client costs. Bill accurately.</p>
+                </div>
+                <div class="bg-slate-800/30 border border-slate-800 rounded-xl p-5 md:p-6 hover:bg-slate-800/50 transition-colors">
+                    <div class="text-2xl mb-3">⚡</div>
+                    <h3 class="font-semibold mb-2">One API Key</h3>
+                    <p class="text-slate-400 text-sm">OpenAI + Anthropic + Google. Drop-in compatible.</p>
+                </div>
+                <div class="bg-slate-800/30 border border-slate-800 rounded-xl p-5 md:p-6 hover:bg-slate-800/50 transition-colors">
+                    <div class="text-2xl mb-3">🚨</div>
+                    <h3 class="font-semibold mb-2">Hard Budget Caps</h3>
+                    <p class="text-slate-400 text-sm">Set limits. Never exceed them. Sleep at night.</p>
+                </div>
+                <div class="bg-slate-800/30 border border-slate-800 rounded-xl p-5 md:p-6 hover:bg-slate-800/50 transition-colors">
+                    <div class="text-2xl mb-3">🔄</div>
+                    <h3 class="font-semibold mb-2">Smart Routing</h3>
+                    <p class="text-slate-400 text-sm">Auto-picks cheapest model that works. 80% savings.</p>
+                </div>
+                <div class="bg-slate-800/30 border border-slate-800 rounded-xl p-5 md:p-6 hover:bg-slate-800/50 transition-colors">
+                    <div class="text-2xl mb-3">📋</div>
+                    <h3 class="font-semibold mb-2">Compliance Ready</h3>
+                    <p class="text-slate-400 text-sm">HIPAA, GDPR toggles. Enterprise clients welcome.</p>
+                </div>
+            </div>
+
+            <!-- Code Block -->
+            <div class="mt-12 md:mt-16 bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+                <div class="flex items-center gap-2 px-4 py-3 bg-slate-800/50 border-b border-slate-800">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    <span class="text-slate-500 text-sm ml-2">Drop-in replacement</span>
+                </div>
+                <pre class="p-4 md:p-6 text-xs md:text-sm overflow-x-auto"><code class="text-slate-300">// Before: Managing 3 different APIs
 const openai = new OpenAI({ apiKey: process.env.OPENAI_KEY })
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_KEY })
-const google = new GoogleAI({ apiKey: process.env.GOOGLE_KEY })
 
 // After: One gateway, all providers
 const gateway = new ResultantGateway({ 
   apiKey: process.env.RESULTANT_KEY 
 })
-// That's it. Use any model. Track every cost.`}
-              </code>
-            </pre>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="py-24">
-        <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">
-            Trusted by Agency Owners
-          </h2>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((t, i) => (
-              <div key={i} className="bg-gradient-to-b from-slate-800/50 to-slate-900/50 border border-slate-800 rounded-2xl p-8">
-                <div className="inline-block bg-emerald-500/10 text-emerald-400 text-sm font-medium px-3 py-1 rounded-full mb-4">
-                  {t.metric}
-                </div>
-                <p className="text-slate-300 mb-6 leading-relaxed">"{t.quote}"</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-full flex items-center justify-center text-black font-bold">
-                    {t.name.charAt(0)}
-                  </div>
-                  <div>
-                    <div className="font-medium">{t.name}</div>
-                    <div className="text-slate-500 text-sm">{t.role}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* What's Included */}
-      <section className="py-24 bg-slate-900/50">
-        <div className="max-w-3xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-            Founding Partner Benefits
-          </h2>
-          <p className="text-slate-400 text-center mb-12">
-            Everything you need to control AI costs, plus exclusive perks.
-          </p>
-          
-          <div className="bg-slate-800/30 border border-slate-700 rounded-2xl overflow-hidden">
-            <div className="p-8 border-b border-slate-700">
-              <div className="flex items-center justify-between mb-6">
-                <div>
-                  <div className="text-2xl font-bold">Founding Partner</div>
-                  <div className="text-slate-400">Limited to 25 agencies</div>
-                </div>
-                <div className="text-right">
-                  <div className="text-slate-500 line-through text-sm">$1,188/year</div>
-                  <div className="text-3xl font-bold text-emerald-400">$499/year</div>
-                </div>
-              </div>
-              
-              <ul className="space-y-4">
-                {[
-                  "Full AI Gateway access (all tiers unlocked)",
-                  "Unlimited API requests (fair use policy)",
-                  "Multi-client cost tracking & billing",
-                  "All providers: OpenAI, Anthropic, Google",
-                  "Hard budget caps & alerts",
-                  "Direct Slack channel with Chris",
-                  "Priority feature requests",
-                  "Co-marketing opportunity (logo on site)",
-                  "Price locked in forever",
-                  "Lifetime discount on all future products"
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-slate-300">{item}</span>
-                  </li>
-                ))}
-              </ul>
+// That's it. Use any model. Track every cost.</code></pre>
             </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 md:py-24">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 md:mb-16">
+                Trusted by Agency Owners
+            </h2>
             
-            <div className="p-8 bg-slate-800/50">
-              <div className="flex items-center justify-between">
-                <div className="text-slate-400">
-                  <span className="text-white font-semibold">{spotsLeft}</span> spots remaining
+            <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-gradient-to-b from-slate-800/50 to-slate-900/50 border border-slate-800 rounded-2xl p-6 md:p-8">
+                    <div class="inline-block bg-emerald-500/10 text-emerald-400 text-sm font-medium px-3 py-1 rounded-full mb-4">
+                        3x lead volume
+                    </div>
+                    <p class="text-slate-300 mb-6 leading-relaxed">"Chris built exactly what we needed - a system that qualifies leads while we sleep. We've already 3x'd our qualified lead volume without hiring more reps."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-full flex items-center justify-center text-black font-bold">J</div>
+                        <div>
+                            <div class="font-medium">Jay Jami</div>
+                            <div class="text-slate-500 text-sm">Founder, Hera J</div>
+                        </div>
+                    </div>
                 </div>
-                <a 
-                  href="#claim"
-                  className="bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-black font-semibold px-6 py-3 rounded-full transition-all"
-                >
-                  Claim Your Spot →
-                </a>
-              </div>
+                <!-- Testimonial 2 -->
+                <div class="bg-gradient-to-b from-slate-800/50 to-slate-900/50 border border-slate-800 rounded-2xl p-6 md:p-8">
+                    <div class="inline-block bg-emerald-500/10 text-emerald-400 text-sm font-medium px-3 py-1 rounded-full mb-4">
+                        97% time savings
+                    </div>
+                    <p class="text-slate-300 mb-6 leading-relaxed">"The automation delivers professional audits faster than we could have imagined. It's killer work that's already transforming how we approach prospect engagement."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-full flex items-center justify-center text-black font-bold">T</div>
+                        <div>
+                            <div class="font-medium">Tyler York</div>
+                            <div class="text-slate-500 text-sm">Founder, AdLeg Marketing</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="bg-gradient-to-b from-slate-800/50 to-slate-900/50 border border-slate-800 rounded-2xl p-6 md:p-8">
+                    <div class="inline-block bg-emerald-500/10 text-emerald-400 text-sm font-medium px-3 py-1 rounded-full mb-4">
+                        $6,285 in 2 weeks
+                    </div>
+                    <p class="text-slate-300 mb-6 leading-relaxed">"I was amazed by the efficiency. They are fast, cost-effective, and available 24/7. Booking appointments has never been easier!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-full flex items-center justify-center text-black font-bold">V</div>
+                        <div>
+                            <div class="font-medium">Vernon J. Sparks</div>
+                            <div class="text-slate-500 text-sm">Owner, Wayne Conn Plumbing</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </section>
+    </section>
 
-      {/* FAQ */}
-      <section className="py-24">
-        <div className="max-w-3xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">
-            Common Questions
-          </h2>
-          
-          <div className="space-y-6">
-            {[
-              {
-                q: "What exactly is 'consumption insurance'?",
-                a: "Instead of paying per-token (where costs can spike unexpectedly), you pay a flat monthly rate. We absorb the risk of usage spikes. If your client's chatbot goes viral, your bill stays the same."
-              },
-              {
-                q: "How does multi-client billing work?",
-                a: "Every API request is tagged with a client ID. You can see exactly how much each client costs, set per-client budgets, and export data for invoicing. No more spreadsheet nightmares."
-              },
-              {
-                q: "Is this really a drop-in replacement?",
-                a: "Yes. We're OpenAI-compatible. Change your API endpoint and key, and you're done. Works with Make.com, n8n, Bubble, Zapier, or custom code."
-              },
-              {
-                q: "What's the catch with $499/year?",
-                a: "No catch. This is founder pricing to get our first 25 agencies onboard. After these spots fill, it's $99/month ($1,188/year). Your price is locked forever."
-              },
-              {
-                q: "What if I exceed fair use limits?",
-                a: "We'll reach out and work with you. Founding Partners get generous limits, and we're flexible. We're building relationships, not gotchas."
-              },
-              {
-                q: "Can I cancel anytime?",
-                a: "Yes. Annual billing, but you can cancel and we'll refund the unused portion. No lock-in."
-              }
-            ].map((faq, i) => (
-              <div key={i} className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
-                <h3 className="font-semibold mb-2">{faq.q}</h3>
-                <p className="text-slate-400">{faq.a}</p>
-              </div>
-            ))}
-          </div>
+    <!-- What's Included -->
+    <section class="py-20 md:py-24 bg-slate-900/50">
+        <div class="max-w-3xl mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">
+                Founding Partner Benefits
+            </h2>
+            <p class="text-slate-400 text-center mb-10 md:mb-12">
+                Everything you need to control AI costs, plus exclusive perks.
+            </p>
+            
+            <div class="bg-slate-800/30 border border-slate-700 rounded-2xl overflow-hidden glow">
+                <div class="p-6 md:p-8 border-b border-slate-700">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                        <div>
+                            <div class="text-2xl font-bold">Founding Partner</div>
+                            <div class="text-slate-400">Limited to 25 agencies</div>
+                        </div>
+                        <div class="sm:text-right">
+                            <div class="text-slate-500 line-through text-sm">$1,188/year</div>
+                            <div class="text-3xl font-bold text-emerald-400">$499/year</div>
+                        </div>
+                    </div>
+                    
+                    <ul class="space-y-3 md:space-y-4">
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-slate-300">Full AI Gateway access (all tiers unlocked)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-slate-300">Unlimited API requests (fair use policy)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-slate-300">Multi-client cost tracking & billing</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-slate-300">All providers: OpenAI, Anthropic, Google</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-slate-300">Hard budget caps & alerts</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-slate-300 font-medium">Direct Slack channel with Chris</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-slate-300 font-medium">Priority feature requests</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-slate-300 font-medium">Co-marketing opportunity (logo on site)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-slate-300 font-medium">Price locked in forever</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="p-6 md:p-8 bg-slate-800/50">
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div class="text-slate-400">
+                            <span class="text-white font-semibold">23</span> spots remaining
+                        </div>
+                        <a href="#claim" class="w-full sm:w-auto text-center bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-black font-semibold px-6 py-3 rounded-full transition-all">
+                            Claim Your Spot →
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-      </section>
+    </section>
 
-      {/* Final CTA */}
-      <section id="claim" className="py-24 bg-gradient-to-b from-slate-900 to-slate-950">
-        <div className="max-w-2xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Ready to Control Your AI Costs?
-          </h2>
-          <p className="text-slate-400 mb-8">
-            Join {25 - spotsLeft} agencies who've already claimed their Founding Partner spot.
-          </p>
-          
-          {!submitted ? (
-            <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-              <div className="flex flex-col sm:flex-row gap-3">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@agency.com"
-                  required
-                  className="flex-1 bg-slate-800 border border-slate-700 rounded-full px-6 py-4 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition-colors"
-                />
-                <button
-                  type="submit"
-                  className="bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-black font-semibold px-8 py-4 rounded-full transition-all whitespace-nowrap"
-                >
-                  Apply Now
-                </button>
-              </div>
-              <p className="text-slate-500 text-sm mt-4">
-                We'll email you within 24 hours to confirm your spot.
-              </p>
+    <!-- FAQ -->
+    <section class="py-20 md:py-24">
+        <div class="max-w-3xl mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 md:mb-16">
+                Common Questions
+            </h2>
+            
+            <div class="space-y-4 md:space-y-6">
+                <div class="bg-slate-900/50 border border-slate-800 rounded-xl p-5 md:p-6">
+                    <h3 class="font-semibold mb-2">What exactly is "consumption insurance"?</h3>
+                    <p class="text-slate-400">Instead of paying per-token (where costs can spike unexpectedly), you pay a flat monthly rate. We absorb the risk of usage spikes. If your client's chatbot goes viral, your bill stays the same.</p>
+                </div>
+                <div class="bg-slate-900/50 border border-slate-800 rounded-xl p-5 md:p-6">
+                    <h3 class="font-semibold mb-2">How does multi-client billing work?</h3>
+                    <p class="text-slate-400">Every API request is tagged with a client ID. You can see exactly how much each client costs, set per-client budgets, and export data for invoicing. No more spreadsheet nightmares.</p>
+                </div>
+                <div class="bg-slate-900/50 border border-slate-800 rounded-xl p-5 md:p-6">
+                    <h3 class="font-semibold mb-2">Is this really a drop-in replacement?</h3>
+                    <p class="text-slate-400">Yes. We're OpenAI-compatible. Change your API endpoint and key, and you're done. Works with Make.com, n8n, Bubble, Zapier, or custom code.</p>
+                </div>
+                <div class="bg-slate-900/50 border border-slate-800 rounded-xl p-5 md:p-6">
+                    <h3 class="font-semibold mb-2">What's the catch with $499/year?</h3>
+                    <p class="text-slate-400">No catch. This is founder pricing to get our first 25 agencies onboard. After these spots fill, it's $99/month ($1,188/year). Your price is locked forever.</p>
+                </div>
+                <div class="bg-slate-900/50 border border-slate-800 rounded-xl p-5 md:p-6">
+                    <h3 class="font-semibold mb-2">What if I exceed fair use limits?</h3>
+                    <p class="text-slate-400">We'll reach out and work with you. Founding Partners get generous limits, and we're flexible. We're building relationships, not gotchas.</p>
+                </div>
+                <div class="bg-slate-900/50 border border-slate-800 rounded-xl p-5 md:p-6">
+                    <h3 class="font-semibold mb-2">Can I cancel anytime?</h3>
+                    <p class="text-slate-400">Yes. Annual billing, but you can cancel and we'll refund the unused portion. No lock-in.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section id="claim" class="py-20 md:py-24 bg-gradient-to-b from-slate-900 to-slate-950">
+        <div class="max-w-2xl mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                Ready to Control Your AI Costs?
+            </h2>
+            <p class="text-slate-400 mb-8">
+                Join 2 agencies who've already claimed their Founding Partner spot.
+            </p>
+            
+            <!-- Form -->
+            <form id="signup-form" class="max-w-md mx-auto" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="you@agency.com"
+                        required
+                        class="flex-1 bg-slate-800 border border-slate-700 rounded-full px-6 py-4 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition-colors"
+                    >
+                    <button
+                        type="submit"
+                        class="bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-black font-semibold px-8 py-4 rounded-full transition-all whitespace-nowrap"
+                    >
+                        Apply Now
+                    </button>
+                </div>
+                <input type="hidden" name="source" value="founding-partner-landing">
+                <input type="hidden" name="offer" value="$499/year">
             </form>
-          ) : (
-            <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-8">
-              <div className="text-4xl mb-4">🎉</div>
-              <h3 className="text-xl font-semibold mb-2">You're on the list!</h3>
-              <p className="text-slate-400">
-                Check your inbox — we'll reach out within 24 hours to confirm your Founding Partner spot.
-              </p>
-            </div>
-          )}
+            
+            <p class="text-slate-500 text-sm mt-4">
+                We'll email you within 24 hours to confirm your spot.
+            </p>
 
-          <div className="mt-12 flex flex-wrap justify-center gap-6 text-slate-500 text-sm">
-            <span>✓ No credit card required</span>
-            <span>✓ Cancel anytime</span>
-            <span>✓ Price locked forever</span>
-          </div>
+            <!-- Success Message (hidden by default) -->
+            <div id="success-message" class="hidden bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-8 mt-8">
+                <div class="text-4xl mb-4">🎉</div>
+                <h3 class="text-xl font-semibold mb-2">You're on the list!</h3>
+                <p class="text-slate-400">
+                    Check your inbox — we'll reach out within 24 hours to confirm your Founding Partner spot.
+                </p>
+            </div>
+
+            <div class="mt-12 flex flex-wrap justify-center gap-4 md:gap-6 text-slate-500 text-sm">
+                <span>✓ No credit card required</span>
+                <span>✓ Cancel anytime</span>
+                <span>✓ Price locked forever</span>
+            </div>
         </div>
-      </section>
+    </section>
 
-      {/* Footer */}
-      <footer className="border-t border-slate-800 py-12">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-lg" />
-              <span className="font-semibold">ResultantAI</span>
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 py-10 md:py-12">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-lg"></div>
+                    <span class="font-semibold">ResultantAI</span>
+                </div>
+                <div class="flex items-center gap-6 text-slate-500">
+                    <a href="https://www.linkedin.com/company/resultantai" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">LinkedIn</a>
+                    <a href="https://x.com/ChrisdotMott" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Twitter</a>
+                    <a href="mailto:chris@resultantai.com" class="hover:text-white transition-colors">Contact</a>
+                </div>
             </div>
-            <div className="flex items-center gap-6 text-slate-500">
-              <a href="https://www.linkedin.com/company/resultantai" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
-              <a href="https://x.com/ChrisdotMott" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Twitter</a>
-              <a href="mailto:chris@resultantai.com" className="hover:text-white transition-colors">Contact</a>
+            <div class="text-center text-slate-600 text-sm mt-8">
+                © 2024 ResultantAI. Built with ☕ for agencies who hate surprise bills.
             </div>
-          </div>
-          <div className="text-center text-slate-600 text-sm mt-8">
-            © 2024 ResultantAI. Built with ☕ for agencies who hate surprise bills.
-          </div>
         </div>
-      </footer>
-    </div>
-  );
-};
+    </footer>
 
-export default FoundingPartnerLanding;
+    <!-- Simple Form Handler -->
+    <script>
+        document.getElementById('signup-form').addEventListener('submit', function(e) {
+            // For demo purposes, show success message
+            // In production, you'd handle the actual form submission
+            e.preventDefault();
+            
+            const email = this.querySelector('input[type="email"]').value;
+            
+            // Option 1: Send to Formspree (uncomment and add your form ID)
+            // fetch('https://formspree.io/f/YOUR_FORM_ID', {
+            //     method: 'POST',
+            //     body: new FormData(this),
+            //     headers: { 'Accept': 'application/json' }
+            // }).then(() => {
+            //     document.getElementById('signup-form').classList.add('hidden');
+            //     document.getElementById('success-message').classList.remove('hidden');
+            // });
+            
+            // Option 2: Send to your Make.com webhook
+            fetch('https://hook.us1.make.com/YOUR_WEBHOOK_ID', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: email,
+                    source: 'founding-partner-landing',
+                    offer: '$499/year',
+                    timestamp: new Date().toISOString()
+                })
+            }).then(() => {
+                document.getElementById('signup-form').classList.add('hidden');
+                document.getElementById('success-message').classList.remove('hidden');
+            }).catch(() => {
+                // Still show success for demo
+                document.getElementById('signup-form').classList.add('hidden');
+                document.getElementById('success-message').classList.remove('hidden');
+            });
+        });
+
+        // Countdown timer
+        function updateCountdown() {
+            const target = new Date('2024-12-24T23:59:59');
+            const now = new Date();
+            const diff = target - now;
+            
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                document.getElementById('countdown').textContent = `${days}d ${hours}h left`;
+            }
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 60000);
+    </script>
+</body>
+</html>
